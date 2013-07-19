@@ -1,0 +1,53 @@
+<?php
+
+/**
+ * @file
+ * This file is for TBR Tokens
+ */
+/**
+ * Implements hook_token_info().
+ */
+function tbr_tokens_token_info() {
+  $types['tbr_to'] = array(
+    'name' => t("TBR Tokens"),
+    'description' => t("Tokens for TBR Sites."),
+  );
+  $tbr_to['system_name'] = array(
+    'name' => t("Full TBR Name"),
+    'description' => t("The full system name."),
+  );
+  $tbr_to['enrollment'] = array(
+    'name' => t("Current System Enrollment Number"),
+    'description' => t("The entire system enrollment number"),
+  );
+
+  return array(
+    'types' => $types,
+    'tokens' => array(
+      'tbr_to' => $tbr_to,
+    ),
+  );
+}
+/**
+ * Implements hook_tokens().
+ */
+function tbr_tokens_tokens($type, $tokens, array $data = array(), array $options = array()) {
+  global $user;
+
+  $replacements = array();
+
+  if ($type == 'tbr_to') {
+    foreach ($tokens as $name => $original) {
+      switch ($name) {
+        case 'system_name':
+          $replacements[$original] = "Tennessee Board of Regents";
+        break;
+        case 'enrollment':
+          $replacements[$original] = "240,000";
+        break;
+      }
+    }
+  }
+
+  return $replacements;
+}

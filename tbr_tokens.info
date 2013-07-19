@@ -1,0 +1,6 @@
+name = TBR Tokens
+description = System wide tokens
+package = TBR
+core = 7.x
+dependencies[] = token
+files[] = tbr_tokens.module
